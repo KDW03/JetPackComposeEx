@@ -1,11 +1,14 @@
 package com.example.jetpackcomposeex
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Space
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
@@ -29,7 +32,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            MessageCard(Message("Android", "Jetpack Compose"))
+            // 테마 설정
+            JetPackComposeExTheme {
+                // 배경색, 모양, 그림자 등을 지정하는 데 사용되는 컴포저블
+                Surface(modifier = Modifier.fillMaxSize()) {
+                    MessageCard(Message("Android", "Jetpack Compose"))
+                }
+            }
         }
     }
 }
@@ -48,22 +57,42 @@ fun MessageCard(msg: Message) {
     /** 요소를 수평으로 정렬 Row*/
     /** 요소를 쌓으려면 Box w*/
     Row(modifier = Modifier.padding(all = 8.dp)) {
-        /** Modifider라는 수정자를 통해 컴포저블의 크기, 레이아웃, 모양을 변경하거나 요소를 클릭 가능하게 만드는 등의 상위 수준 상호작용 추가*/
+        /** Modifider라는 수정자를 통해 컴포저블의 크기, 레이아웃, 모양을 변경하거나 요소를 클릭 가능하게 만드는 등의 상위 수준 상호작용 추가
+         *  size는 width와 hieght를 동시에 설정 */
         Image(
             painter = painterResource(id = R.drawable.profile_picture),
             contentDescription = " Contact profile picture",
             modifier = Modifier
-                .size(40.dp)
+                .size(50.dp)
                 .clip(CircleShape)
+                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
         )
 
         // Add a horizontal space between the image and the column
         Spacer(modifier = Modifier.width(8.dp))
 
         Column {
-            Text(text = msg.author)
+            Text(
+                text = msg.author,
+                color = MaterialTheme.colors.secondaryVariant,
+                style = MaterialTheme.typography.subtitle2
+            )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = msg.body)
+            // 도형을 적용해주기 위해 surface로 래핑
+            Surface(
+                shape = MaterialTheme.shapes.medium, elevation = 1.dp,
+                border = BorderStroke(
+                    3.5.dp,
+                    Color.Blue
+                ),
+            ) {
+                Text(
+                    text = msg.body,
+                    modifier = Modifier.padding(all = 4.dp),
+                    style = MaterialTheme.typography.body2
+                )
+            }
+
         }
     }
 }
@@ -80,11 +109,21 @@ fun PreviewMessageCard() {
     MessageCard(name = "Android")
 }
 
+/** DarkMode 사용 Compose 기보적으로 Dark Theme 지원*/
 /** Preview도 여러개 가능 */
-@Preview
+@Preview(name = "Light Mode")
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark MODE"
+)
 @Composable
 fun preViewMessageCard() {
-    MessageCard(msg = Message("Colleague", "Hey, take a look at Jetpack Compose"))
+    JetPackComposeExTheme {
+        Surface {
+            MessageCard(msg = Message("Colleague", "Hey, take a look at Jetpack Compose"))
+        }
+    }
 }
 
 
