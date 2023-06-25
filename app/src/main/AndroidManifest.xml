@@ -12,7 +12,7 @@
         android:theme="@style/Theme.JetPackComposeEx"
         tools:targetApi="31">
         <activity
-            android:name=".ui.codelab1.ComposeMainActivity"
+            android:name=".codelab1.ComposeMainActivity"
             android:exported="true"
             android:label="@string/title_activity_compose_main"
             android:theme="@style/Theme.JetPackComposeEx">
@@ -22,12 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.JetPackComposeEx">
-        </activity>
+
     </application>
 
 </manifest>

@@ -1,7 +1,7 @@
-package com.example.jetpackcomposeex.ui
+package com.example.jetpackcomposeex.codelab1
 
-import com.example.jetpackcomposeex.Message
 
+data class Message(val author: String, val content: String)
 object SampleData {
     // Sample conversation data
     val conversationSample = listOf(
