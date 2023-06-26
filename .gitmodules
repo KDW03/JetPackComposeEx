@@ -1,0 +1,3 @@
+[submodule "codelabLump/Lump"]
+	path = codelabLump/Lump
+	url = https://github.com/android/codelab-android-compose
